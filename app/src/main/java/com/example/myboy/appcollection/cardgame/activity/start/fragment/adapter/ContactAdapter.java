@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.myboy.appcollection.GlideApp;
 import com.example.myboy.appcollection.R;
 import com.example.myboy.appcollection.cardgame.bean.ContactBean;
 
@@ -98,8 +100,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 tvInvite.setVisibility(View.VISIBLE);
                 tvGame.setText("游戏暂未开通");
             }
-
-            Glide.with(itemView).asDrawable().load(bean.getImg());
+            GlideApp.with(itemView).asDrawable().load(bean.getImg()).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.ALL).into(contactImg);
         }
     }
 
