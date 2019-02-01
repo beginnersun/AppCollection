@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:id="@+id/drawer"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_sandbeach">
+
+    <TextView
+        android:id="@+id/open_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="打开"
+        android:gravity="center_vertical"/>
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="visible">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/title"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/start_title"
+                android:layout_marginLeft="30dp"
+                />
+
+            <TextView
+                android:layout_below="@id/title"
+                android:id="@+id/noviciate"
+                android:layout_width="150dp"
+                android:layout_height="105dp"
+                android:background="@mipmap/noviciate"
+                android:text="35"
+                android:textSize="12sp"
+                android:gravity="bottom|center"
+                android:paddingBottom="8.5dp"
+                android:paddingLeft="5dp"
+                />
+
+            <TextView
+                android:id="@+id/junior"
+                android:layout_below="@id/title"
+                android:layout_toRightOf="@id/noviciate"
+                android:layout_width="150dp"
+                android:layout_height="105dp"
+                android:background="@mipmap/junior"
+                android:layout_marginLeft="20dp"
+                android:text="35"
+                android:textSize="12sp"
+                android:gravity="bottom|center"
+                android:paddingBottom="8.5dp"
+                android:paddingLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/intermediate"
+                android:layout_below="@+id/noviciate"
+                android:layout_width="150dp"
+                android:layout_height="105dp"
+                android:background="@mipmap/intermediate"
+                android:layout_marginTop="15dp"
+                android:text="35"
+                android:textSize="12sp"
+                android:gravity="bottom|center"
+                android:paddingBottom="8.5dp"
+                android:paddingLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/senior"
+                android:layout_toRightOf="@+id/intermediate"
+                android:layout_below="@+id/junior"
+                android:layout_width="150dp"
+                android:layout_height="105dp"
+                android:background="@mipmap/senior"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:text="35"
+                android:textSize="12sp"
+                android:gravity="bottom|center"
+                android:paddingBottom="8.5dp"
+                android:paddingLeft="5dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ddz"
+                android:layout_width="160dp"
+                android:layout_height="65dp"
+                android:padding="18dp"
+                android:src="@mipmap/classical_ddz"
+                android:background="@mipmap/btn_bg2"/>
+
+            <ImageView
+                android:id="@+id/video_center"
+                android:layout_width="160dp"
+                android:layout_height="65dp"
+                android:padding="18dp"
+                android:src="@mipmap/video_center"
+                android:background="@mipmap/btn_bg1"
+                />
+            <ImageView
+                android:id="@+id/ranking"
+                android:layout_width="160dp"
+                android:layout_height="65dp"
+                android:padding="16.5dp"
+                android:src="@mipmap/ranking"
+                android:background="@mipmap/btn_bg3"/>
+            <ImageView
+                android:id="@+id/setting"
+                android:layout_width="160dp"
+                android:layout_height="65dp"
+                android:padding="16.5dp"
+                android:src="@mipmap/game_setting"
+                android:background="@mipmap/btn_bg4"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_gravity="left">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabTextColor="#FFAA25"
+            app:tabSelectedTextColor="@color/button_blue"
+            app:tabIndicatorColor="@color/button_blue">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的好友"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="手机联系人"/>
+
+        </com.google.android.material.tabs.TabLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_cardDemo"
+        android:title="RecyclerView"
+        />
+
+    <item
+        android:id="@+id/item_jniDemo"
+        android:title="JNI"
+        />
+
+    <item
+        android:id="@+id/item_socketDemo"
+        android:title="Socket"
+        />
+
+    <item
+        android:id="@+id/item_MapDemo"
+        android:title="BaiduMap"
+        />
+
+    <item
+        android:id="@+id/item_netWorkDemo"
+        android:title="RxJavaRetrofitDemo"
+        />
+
+    <item
+        android:id="@+id/item_pictureDemo"
+        android:title="Gallery"
+        />
+
+    <item
+        android:id="@+id/item_mediaPlayerDemo"
+        android:title="MediaPlayer"
+        />
+
+    <item
+        android:id="@+id/item_videoPlayerDemo"
+        android:title="VideoPlayer"
+        />
+
+    <item
+        android:id="@+id/item_sortAlgorithm"
+        android:title="排序算法"
+        />
+
+    <item
+        android:id="@+id/item_searchAlgorithm"
+        android:title="查找算法"
+        />
+
+    <item
+        android:id="@+id/item_desktop"
+        android:title="桌面"
+        />
+</menu>

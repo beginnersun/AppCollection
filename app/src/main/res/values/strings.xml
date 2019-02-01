@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">AppCollection</string>
+    <string name="share_to_qq">分享到QQ</string>
+    <string name="share_to_wx">分享到微信</string>
+    <string name="share_to_wb">分享到微博</string>
+    <string name="back">返 回</string>
+
+    <string name="share">分享</string>
+    <string name="follow">关注</string>
+    <string name="addfriend">加为好友</string>
+    <string name="go_he">去他空间</string>
+    <string name="input_user">请输入账号</string>
+    <string name="input_phone">请输入手机号码</string>
+    <string name="input_pass">请输入密码</string>
+    <string name="input_code">请输入验证码</string>
+    <string name="quick_login">快速登录</string>
+
+</resources>

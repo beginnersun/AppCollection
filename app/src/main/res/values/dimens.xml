@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="desktop_menu">250dp</dimen>
+    <dimen name="video_center_list_margin_bottom">20dp</dimen>
+    <dimen name="video_center_list_margin_right">200dp</dimen>
+    <dimen name="video_center_list_padding">10dp</dimen>
+    <dimen name="video_center_list_margin_left">20dp</dimen>
+    <dimen name="video_center_list_margin_top">20dp</dimen>
+    <dimen name="distance_video_with_menu">20dp</dimen>
+    <dimen name="share_to_qq_height">58dp</dimen>
+
+
+</resources>

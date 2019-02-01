@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ddz_bg"/>
+
+    <ImageView
+        android:layout_marginLeft="20dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ddz"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@mipmap/user"
+                />
+
+            <EditText
+                android:id="@+id/ed_username"
+                android:layout_marginLeft="10dp"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="15dp"
+                android:gravity="left|center"
+                android:hint="@string/input_user"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:background="@mipmap/input_bg"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/password"
+            android:layout_below="@id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@mipmap/password"
+                />
+
+            <EditText
+                android:id="@+id/ed_password"
+                android:layout_marginLeft="10dp"
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="15dp"
+                android:gravity="left|center"
+                android:textColorHint="@color/white"
+                android:hint="@string/input_pass"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:background="@mipmap/input_bg"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/md_green_btn"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="center"
+                />
+            <TextView
+                android:id="@+id/tv_register"
+                android:layout_marginLeft="30dp"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/md_green_btn"
+                android:text="注册"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="160dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/quick_login"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@mipmap/login_btn_bg"
+                android:paddingLeft="20dp"
+                />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/qq_icon"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="100dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/quick_login"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:background="@mipmap/login_btn_bg"
+                android:paddingLeft="20dp"
+                />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/wx_icon"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
