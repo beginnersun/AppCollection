@@ -54,6 +54,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         });
     }
 
+    public void setDatas(List<ContactBean> datas){
+        this.datas = datas;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onViewRecycled(@NonNull ViewHolder holder) {
         super.onViewRecycled(holder);

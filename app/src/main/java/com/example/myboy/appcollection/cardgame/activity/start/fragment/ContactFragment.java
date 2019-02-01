@@ -17,6 +17,7 @@ import com.example.myboy.appcollection.cardgame.bean.ContactBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -85,8 +86,8 @@ public class ContactFragment extends BaseFragment implements Presenter.View,Cont
     }
 
     @Override
-    public void setContactsData(String data) {
-
+    public void setContactsData(List<ContactBean> data) {
+        adapter.setDatas(data);
     }
 
     @Override

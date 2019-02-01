@@ -13,7 +13,7 @@ public interface Presenter extends BasePresenter {
 
         boolean isHavePermission();
 
-        void setContactsData(String data);
+        void setContactsData(List<ContactBean> data);
 
         void haveNoneContact();
 

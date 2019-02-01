@@ -3,6 +3,7 @@ package com.example.myboy.appcollection.cardgame.activity.start.fragment.present
 import android.database.Cursor;
 import android.provider.ContactsContract;
 
+import com.example.myboy.appcollection.cardgame.activity.start.fragment.ContactFragment;
 import com.example.myboy.appcollection.cardgame.bean.ContactBean;
 
 import java.util.ArrayList;
@@ -17,6 +18,12 @@ public class ContactPresenter implements Presenter {
     public ContactPresenter(View view) {
         this.view = view;
         contacts = new ArrayList<>();
+        ContactFragment fragment = (ContactFragment) view;
+        if(fragment.isHavePermission()){
+            view.notHavePermission();
+        }else{
+
+        }
     }
 
     @Override
@@ -28,6 +35,11 @@ public class ContactPresenter implements Presenter {
             contactBean.setName(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)));
             contactBean.setPhone(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
             contacts.add(contactBean);
+        }
+        if(contacts!=null&&contacts.size()>0){
+            view.setContactsData(contacts);
+        }else{
+            view.haveNoneContact();
         }
         cursor.close();
     }
