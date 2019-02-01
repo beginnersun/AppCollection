@@ -1,4 +1,4 @@
-package com.example.myboy.appcollection.cardgame.activity.start.fragment.adapter;
+package com.example.myboy.appcollection.cardgame.activity.start.fragment.contact.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -56,7 +56,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     public void setDatas(List<ContactBean> datas){
         this.datas = datas;
-        notifyDataSetChanged();
     }
 
     @Override

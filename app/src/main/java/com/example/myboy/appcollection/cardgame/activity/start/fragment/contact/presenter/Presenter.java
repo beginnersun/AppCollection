@@ -1,4 +1,4 @@
-package com.example.myboy.appcollection.cardgame.activity.start.fragment.presenter;
+package com.example.myboy.appcollection.cardgame.activity.start.fragment.contact.presenter;
 
 import com.example.myboy.appcollection.cardgame.base.BasePresenter;
 import com.example.myboy.appcollection.cardgame.bean.ContactBean;

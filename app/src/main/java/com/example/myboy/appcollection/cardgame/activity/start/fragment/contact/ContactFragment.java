@@ -1,16 +1,15 @@
-package com.example.myboy.appcollection.cardgame.activity.start.fragment;
+package com.example.myboy.appcollection.cardgame.activity.start.fragment.contact;
 
-import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.myboy.appcollection.R;
-import com.example.myboy.appcollection.cardgame.activity.start.fragment.adapter.ContactAdapter;
-import com.example.myboy.appcollection.cardgame.activity.start.fragment.presenter.ContactPresenter;
-import com.example.myboy.appcollection.cardgame.activity.start.fragment.presenter.Presenter;
+import com.example.myboy.appcollection.cardgame.activity.start.fragment.contact.adapter.ContactAdapter;
+import com.example.myboy.appcollection.cardgame.activity.start.fragment.contact.presenter.ContactPresenter;
+import com.example.myboy.appcollection.cardgame.activity.start.fragment.contact.presenter.Presenter;
 import com.example.myboy.appcollection.cardgame.base.BaseFragment;
 import com.example.myboy.appcollection.cardgame.base.BasePresenter;
 import com.example.myboy.appcollection.cardgame.bean.ContactBean;
@@ -19,7 +18,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,20 +38,19 @@ public class ContactFragment extends BaseFragment implements Presenter.View,Cont
     private boolean isContactPermission = false;
     private ContactPresenter presenter;
     private ContactAdapter adapter;
-    private ArrayList<ContactBean> beans;
+    private List<ContactBean> data;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreateView(@Nullable Bundle savedInstanceState) {
         setPresenter(new ContactPresenter(this));
-        beans = new ArrayList<ContactBean>();
-        adapter = new ContactAdapter(beans,getActivity());
+        data = new ArrayList<ContactBean>();
+        adapter = new ContactAdapter(data,getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerview.setLayoutManager(linearLayoutManager);
         recyclerview.setAdapter(adapter);
         adapter.setClickListener(this);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        presenter.queryContacts();
     }
 
     @Override
@@ -87,6 +84,7 @@ public class ContactFragment extends BaseFragment implements Presenter.View,Cont
 
     @Override
     public void setContactsData(List<ContactBean> data) {
+        this.data = (ArrayList<ContactBean>) data;
         adapter.setDatas(data);
     }
 
@@ -104,7 +102,10 @@ public class ContactFragment extends BaseFragment implements Presenter.View,Cont
 
     @Override
     public void onClick(int position) {
-        ContactBean bean = beans.get(position);
-
+        ContactBean bean = data.get(position);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:"+bean.getPhone()));
+        intent.putExtra("sms_body","快来和我一起玩游戏吧，我在这里等你哟！"+"\r\n"+"点击下方链接下载安装或者搜索cardgame安装");
+        startActivity(intent);
     }
 }

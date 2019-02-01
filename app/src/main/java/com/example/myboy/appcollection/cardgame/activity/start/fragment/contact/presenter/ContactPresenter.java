@@ -1,9 +1,9 @@
-package com.example.myboy.appcollection.cardgame.activity.start.fragment.presenter;
+package com.example.myboy.appcollection.cardgame.activity.start.fragment.contact.presenter;
 
 import android.database.Cursor;
 import android.provider.ContactsContract;
 
-import com.example.myboy.appcollection.cardgame.activity.start.fragment.ContactFragment;
+import com.example.myboy.appcollection.cardgame.activity.start.fragment.contact.ContactFragment;
 import com.example.myboy.appcollection.cardgame.bean.ContactBean;
 
 import java.util.ArrayList;
@@ -19,10 +19,8 @@ public class ContactPresenter implements Presenter {
         this.view = view;
         contacts = new ArrayList<>();
         ContactFragment fragment = (ContactFragment) view;
-        if(fragment.isHavePermission()){
+        if(!fragment.isHavePermission()){
             view.notHavePermission();
-        }else{
-
         }
     }
 
