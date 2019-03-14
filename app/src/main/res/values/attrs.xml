@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BitmapView">
+        <attr name="key_word" format="string"/>
+        <attr name="key_size" format="integer"/>
+        <attr name="key_color" format="color"/>
+        <attr name="key_background" format="reference|color"/>
+        <attr name="text" format="string"/>
+        <attr name="text_size" format="integer"/>
+        <attr name="text_color" format="color"/>
+    </declare-styleable>
+</resources>

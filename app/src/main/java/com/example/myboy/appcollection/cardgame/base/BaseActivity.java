@@ -156,4 +156,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.category.HOME");
+        startActivity(intent);
+        super.onBackPressed();
+    }
 }

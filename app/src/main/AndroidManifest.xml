@@ -12,6 +12,9 @@
         <!-- 读取日历和相机 -->
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
         <!-- 短信权限和通讯录权限
          第一个和第二个是为了开启Mob的SMS智能验证权限
          -->
@@ -30,8 +33,10 @@
     限，Glide 将自动监听连接状态而不需要额外的改动。    -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
-        android:name=".cardgame.activity.GameApplication"
+        android:name=".SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -46,6 +51,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--&lt;!&ndash; 腾讯Bugly 配置热更新 &ndash;&gt;-->
+        <!--<activity-->
+            <!--android:name="com.tencent.bugly.beta.ui.BetaActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize|locale"-->
+            <!--android:theme="@android:style/Theme.Translucent" />-->
 
         <activity android:name=".cardgame.GameActivity">
             <intent-filter>
@@ -86,19 +97,17 @@
         <activity android:name=".search.bean.BaseBean"/>
 
         <activity android:name=".search.SortActivity"/>
-        
-        
 
-        <!--<provider-->
-            <!--android:authorities="com.example.myboy.appcollection.fileProvider"-->
-            <!--android:name="androidx.core.content.FileProvider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/filepaths"-->
-                <!--/>-->
-        <!--</provider>-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"
+                />
+        </provider>
 
         <service android:name=".cardgame.service.KeepAliveService">
             <intent-filter>

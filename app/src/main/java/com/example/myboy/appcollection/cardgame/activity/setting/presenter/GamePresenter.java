@@ -3,7 +3,7 @@ package com.example.myboy.appcollection.cardgame.activity.setting.presenter;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.myboy.appcollection.cardgame.activity.GameApplication;
+import com.example.myboy.appcollection.cardgame.activity.SampleApplicationLike;
 
 public class GamePresenter implements Presenter {
 
@@ -11,7 +11,7 @@ public class GamePresenter implements Presenter {
     SharedPreferences sharedPreferences;
     public GamePresenter(View view) {
         this.view = view;
-        sharedPreferences = GameApplication.getInstance().getSharedPreferences("game_setting",Context.MODE_PRIVATE); sharedPreferences = GameApplication.getInstance().getSharedPreferences("game_setting",Context.MODE_PRIVATE);
+        sharedPreferences = SampleApplicationLike.getInstance().getApplicationContext().getSharedPreferences("game_setting",Context.MODE_PRIVATE); sharedPreferences = SampleApplicationLike.getInstance().getSharedPreferences("game_setting",Context.MODE_PRIVATE);
     }
 
     @Override

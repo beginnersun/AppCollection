@@ -24,6 +24,7 @@ import com.example.myboy.appcollection.search.SortActivity;
 import com.example.myboy.appcollection.videoplayer.VideoPlayerActivity;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.bugly.beta.Beta;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        TextView setBgMusic = this.findViewById(R.id.hh);
 //
 //        File file = new File("");
 //        setBgMusic.setOnClickListener(new View.OnClickListener() { //点击选择音频文件
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 //        intent.putExtra(VideoPlayerActivity.VIDEO_NAME,"名字");
 //        intent.putExtra(VideoPlayerActivity.VIDEO_URL,"https://d2.xia12345.com/down/91/2019/01/Dx6e3Ggk.mp4");
 //        startActivity(intent);
+
     }
     protected void requestPermissions(String... permissions){
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){ //如果大于等于23才回动态申请否则

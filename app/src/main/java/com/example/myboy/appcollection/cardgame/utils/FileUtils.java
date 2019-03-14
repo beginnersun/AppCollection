@@ -1,10 +1,9 @@
 package com.example.myboy.appcollection.cardgame.utils;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.example.myboy.appcollection.cardgame.activity.GameApplication;
+import com.example.myboy.appcollection.cardgame.activity.SampleApplicationLike;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,7 +28,7 @@ public class FileUtils {
         FileOutputStream out = null;
         BufferedWriter writer = null;
         try {
-            out = GameApplication.getInstance().openFileOutput(fileName,Context.MODE_APPEND);
+            out = SampleApplicationLike.getInstance().openFileOutput(fileName,Context.MODE_APPEND);
             writer = new BufferedWriter(new OutputStreamWriter(out));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -59,7 +58,7 @@ public class FileUtils {
         FileInputStream in = null;
         BufferedReader reader = null;
         try {
-            in = GameApplication.getInstance().openFileInput(fileName);
+            in = SampleApplicationLike.getInstance().openFileInput(fileName);
             reader = new BufferedReader(new InputStreamReader(in));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
