@@ -1,0 +1,1 @@
+com/example/myboy/appcollection/MainActivity.class

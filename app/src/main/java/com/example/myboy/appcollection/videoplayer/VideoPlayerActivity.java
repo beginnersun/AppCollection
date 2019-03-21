@@ -1,6 +1,7 @@
 package com.example.myboy.appcollection.videoplayer;
 
 import android.content.Intent;
+import android.net.VpnService;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,12 @@ public class VideoPlayerActivity extends AppCompatActivity{
             name = intent.getStringExtra(VIDEO_NAME);
             videoPlayer.setUp(url,name,JzvdStd.SCREEN_WINDOW_FULLSCREEN); //直接全屏播放
             Glide.with(this).load(getNetVideoBitmap(url)).into(videoPlayer.thumbImageView);
+        }
+        Intent intent1 = VpnService.prepare(this);
+        if (intent1 != null){
+            startActivityForResult(intent1,0);
+        }else{
+            onActivityResult(0,RESULT_OK,null);
         }
     }
 

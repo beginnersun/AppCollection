@@ -8,4 +8,11 @@ public class Constant {
 
     public static String bugly_id = "fc546dfb10";
 
+
+    public static String ALIPAY_NOTIFICATION_URL = "";
+
+    public static String appid = "";
+
+    public static String PRIVATE_RSA2_KEY = "";
+
 }

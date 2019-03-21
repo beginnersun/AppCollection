@@ -70,7 +70,7 @@ public class GameActivity extends AppCompatActivity {
         arrayList.add(new CardBean(0,11,false,false,arrayList));
         arrayList.add(new CardBean(0,12,false,false,arrayList));
         arrayList.add(new CardBean(0,13,false,false,arrayList));
-        recyclerView.addItemDecoration(new CardItemDecoration());
+        recyclerView.addItemDecoration(new CardItemDecoration());  //让每一个item之间间距减少200或者某个值（做出紧挨着的感觉  会根据剩余牌数进行变化）
 //        adapter = new CardAdapter(arrayList);
         recyclerView.setListData(arrayList);
         cardBeans = arrayList;

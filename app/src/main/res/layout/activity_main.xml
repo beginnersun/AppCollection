@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/hh"
+    <com.example.myboy.appcollection.cardgame.weigets.VerticalBannerView
+        android:id="@+id/verticalview"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Hello World!" />
+        android:layout_height="100dp"
+        android:background="@color/bg_gray"/>
 
 </LinearLayout>

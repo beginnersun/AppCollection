@@ -3,6 +3,7 @@ package com.example.myboy.appcollection;
 import android.Manifest;
 import android.app.Activity;
 import android.app.usage.ExternalStorageStats;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,16 +13,20 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.example.myboy.appcollection.cardgame.activity.login.LoginActivity;
+import com.example.myboy.appcollection.cardgame.weigets.VerticalBannerView;
 import com.example.myboy.appcollection.desktop.DeskTopActivity;
 import com.example.myboy.appcollection.search.SortActivity;
 import com.example.myboy.appcollection.videoplayer.VideoPlayerActivity;
+import com.example.myboy.appcollection.vpn.VpnUtil;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.bugly.beta.Beta;
@@ -30,7 +35,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.functions.Consumer;
 
@@ -40,40 +50,113 @@ public class MainActivity extends AppCompatActivity {
     int REQUEST_MUSIC = 3; //请求mp3文件
     String filePathMusic;
     private static final String TAG = "MainActivity";
+    VerticalBannerView verticalBannerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 //
-//        File file = new File("");
-//        setBgMusic.setOnClickListener(new View.OnClickListener() { //点击选择音频文件
+//
+//        verticalBannerView = findViewById(R.id.verticalview);
+//
+//        List<Bean> title = new ArrayList<>();
+//        title.add(new Bean("第一个之一","第一个之二"));
+//        title.add(new Bean("第二个之一","第二个之二"));
+//        title.add(new Bean("第三个之一","第三个之二"));
+//        verticalBannerView.setDatas(title);
+//        verticalBannerView.setTime(1*1000,3*1000);
+//        verticalBannerView.setViewFactory(new ViewFactory(new SoftReference<>(this)));
+
+//        findViewById(R.id.hh).setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onClick(View view) {
-//                requestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA);
+//            public void onClick(View v) {
+//                VpnUtil.init(MainActivity.this);
+//                Object vpnProfile = VpnUtil.getVpnProfile();
+//                if (vpnProfile == null) {
+//                    vpnProfile = VpnUtil.createVpnProfile("vpn1", "host", "username", "password");
+//                } else {
+//                    VpnUtil.setParams(vpnProfile,"vpn2","host","username","password");
+//                }
+//                VpnUtil.connect(MainActivity.this,vpnProfile);
 //            }
 //        });
-
-//        Intent intent = new Intent(this,VideoPlayerActivity.class);
-//        intent.putExtra(VideoPlayerActivity.VIDEO_NAME,"名字");
-//        intent.putExtra(VideoPlayerActivity.VIDEO_URL,"https://d2.xia12345.com/down/91/2019/01/Dx6e3Ggk.mp4");
-//        startActivity(intent);
-
+//        verticalBannerView.setFactory(new VerticalBannerView.VerticalViewFactory() {
+//
+//            @Override
+//            protected View createView(Object o) {
+//                View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.activity_alipay,null);
+//                return view;
+//            }
+//        });
     }
-    protected void requestPermissions(String... permissions){
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){ //如果大于等于23才回动态申请否则
-            if(permissions.length==1){ //如果权限只有一个 那就用一个的方法
+
+    static class Bean{
+        private String one;
+        private String two;
+
+        public Bean(String one, String two) {
+            this.one = one;
+            this.two = two;
+        }
+
+        public String getOne() {
+            return one;
+        }
+
+        public void setOne(String one) {
+            this.one = one;
+        }
+
+        public String getTwo() {
+            return two;
+        }
+
+        public void setTwo(String two) {
+            this.two = two;
+        }
+    }
+
+    static class ViewFactory extends VerticalBannerView.VerticalViewFactory<Bean>{
+        private SoftReference<Context> mContext;
+
+        public ViewFactory(SoftReference<Context> mContext) {
+            this.mContext = mContext;
+        }
+
+        @Override
+        protected void refreshView(View view, Bean bean) {
+            if (view!=null) {
+                TextView one = view.findViewById(R.id.one);
+                TextView two = view.findViewById(R.id.two);
+                one.setText(bean.getOne());
+                two.setText(bean.getTwo());
+            }
+        }
+
+        @Override
+        public View makeView() {
+            View view = null;
+            if (mContext.get()!=null){
+                view = LayoutInflater.from(mContext.get()).inflate(R.layout.item_vertical,null);
+            }
+            return view;
+        }
+    }
+
+    protected void requestPermissions(String... permissions) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { //如果大于等于23才回动态申请否则
+            if (permissions.length == 1) { //如果权限只有一个 那就用一个的方法
                 requestPermission(permissions[0]);
-            }else {
+            } else {
                 RxPermissions rxPermissions = new RxPermissions(this);
                 rxPermissions.requestEachCombined(permissions).subscribe(new Consumer<Permission>() {
                     @Override
                     public void accept(Permission permission) throws Exception {
-                        if(permission.granted){
+                        if (permission.granted) {
                             String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
                             dir = dir + File.separator + "gaga.mp3";
                             File file = new File(dir);
-                            if(!file.exists()){
+                            if (!file.exists()) {
                                 file.createNewFile();
                             }
                             Uri uri = Uri.fromFile(file);
@@ -81,22 +164,25 @@ public class MainActivity extends AppCompatActivity {
 //                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 //                            intent.setType("audio/*");
 //                            startActivityForResult(intent,REQUEST_MUSIC);
-                        }else{
+                        } else {
 
                         }
                     }
                 });
             }
-        }else{ //  小于23 权限直接拥有
-            for(String permission:permissions){
+        } else { //  小于23 权限直接拥有
+            for (String permission : permissions) {
 
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("audio/*");
-                startActivityForResult(intent,REQUEST_MUSIC);
+                startActivityForResult(intent, REQUEST_MUSIC);
             }
         }
     }
-    /** 保存相机的图片 **/
+
+    /**
+     * 保存相机的图片
+     **/
     private void saveCameraImage(Intent data) {
         // 检查sd card是否存在
         if (!Environment.getExternalStorageState().equals(
@@ -134,31 +220,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_MUSIC && RESULT_OK == resultCode && null!=data){ //获取选择的音频文件
+        if (requestCode == REQUEST_MUSIC && RESULT_OK == resultCode && null != data) { //获取选择的音频文件
             Uri uri = data.getData();
             String filePath[] = {MediaStore.Audio.Media.DATA};
-            Cursor cursor = getContentResolver().query(uri,filePath, null, null, null);
+            Cursor cursor = getContentResolver().query(uri, filePath, null, null, null);
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePath[0]);
             filePathMusic = cursor.getString(columnIndex);
-            Log.d("SetMediaPlayerActivity:","选择的音频文件为"+filePathMusic);
-            Toast.makeText(this,"选择的音频文件为"+filePathMusic,Toast.LENGTH_LONG).show();
+            Log.d("SetMediaPlayerActivity:", "选择的音频文件为" + filePathMusic);
+            Toast.makeText(this, "选择的音频文件为" + filePathMusic, Toast.LENGTH_LONG).show();
             Uri music = Uri.fromFile(new File(filePathMusic));
             cursor.close();
         }
     }
 
-    private void requestPermission(String permission){
+    private void requestPermission(String permission) {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(permission).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(Boolean aBoolean) throws Exception {
-                if(aBoolean){
+                if (aBoolean) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("audio/*");
-                    startActivityForResult(intent,REQUEST_MUSIC);
-                }else {
-                    Toast.makeText(MainActivity.this,"请求权限失败",Toast.LENGTH_LONG).show();
+                    startActivityForResult(intent, REQUEST_MUSIC);
+                } else {
+                    Toast.makeText(MainActivity.this, "请求权限失败", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -166,22 +252,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     *
      * @param menu
      * @return false 不显示  true显示
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main,menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = new Intent();
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.item_cardDemo:
-                intent.setClass(this,LoginActivity.class);
+                intent.setClass(this, LoginActivity.class);
                 break;
             case R.id.item_jniDemo:
                 break;
@@ -198,12 +283,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_socketDemo:
                 break;
             case R.id.item_sortAlgorithm:
-                intent.setClass(this,SortActivity.class);
+                intent.setClass(this, SortActivity.class);
                 break;
             case R.id.item_searchAlgorithm:
                 break;
             case R.id.item_desktop:
-                intent.setClass(this,DeskTopActivity.class);
+                intent.setClass(this, DeskTopActivity.class);
                 break;
         }
         startActivity(intent);

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.myboy.appcollection.cardgame.utils.ActivityCollector;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -163,5 +164,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         intent.setAction("android.intent.category.HOME");
         startActivity(intent);
         super.onBackPressed();
+    }
+
+    /**
+     * 进行弹窗
+     */
+    protected void showAlert(String content){
+        Toast.makeText(this,content,Toast.LENGTH_SHORT).show();
     }
 }

@@ -2,11 +2,20 @@
 <resources>
     <declare-styleable name="BitmapView">
         <attr name="key_word" format="string"/>
-        <attr name="key_size" format="integer"/>
+        <attr name="key_size" format="dimension"/>
         <attr name="key_color" format="color"/>
         <attr name="key_background" format="reference|color"/>
-        <attr name="text" format="string"/>
-        <attr name="text_size" format="integer"/>
+        <attr name="text_size" format="dimension"/>
         <attr name="text_color" format="color"/>
+        <attr name="text" format="string"></attr>
+    </declare-styleable>
+    <declare-styleable name="MyTextView">
+        <attr name="textColor" format="color"></attr>
+        <attr name="textSize" format="dimension"></attr>
+        <attr name="text1" format="string"></attr>
+        <attr name="showMode">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+        </attr>
     </declare-styleable>
 </resources>

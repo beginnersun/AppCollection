@@ -39,6 +39,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         super.onCreate();
         instance = getApplication();
         initSDK();
+
     }
 
     private void initBeta() {
@@ -104,7 +105,7 @@ public class SampleApplicationLike extends DefaultApplicationLike {
     }
 
     private void initSDK(){
-        initBeta(); //这个是对Bugly的初始化
+//        initBeta(); //这个是对Bugly的初始化
         Bugly.init(getApplication(), Constant.bugly_id, true);
         MobSDK.init(getApplication());
     }

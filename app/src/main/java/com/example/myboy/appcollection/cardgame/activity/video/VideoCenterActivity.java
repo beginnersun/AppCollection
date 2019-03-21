@@ -1,6 +1,7 @@
 package com.example.myboy.appcollection.cardgame.activity.video;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -69,6 +70,13 @@ public class VideoCenterActivity extends BaseActivity implements Presenter.View 
                 startActivity(intent);
             }
         });
+        AsyncTask asyncTask = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                return null;
+            }
+        };
+        asyncTask.execute("");
     }
 
     @Override
