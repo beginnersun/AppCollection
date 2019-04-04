@@ -91,7 +91,7 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppCompatFullScreen"/>
 
-
+<activity android:name=".demo.activity.login.LoginActivity"/>
 
         <activity
             android:theme="@style/MyTransParentStyle"
@@ -100,6 +100,11 @@
         <activity android:name=".search.bean.BaseBean"/>
 
         <activity android:name=".search.SortActivity"/>
+        <activity android:name=".databinding.WeatherActivity"/>
+
+
+        <activity android:name=".demo.activity.main.MainActivity"
+            android:theme="@style/NoActionBar"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

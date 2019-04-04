@@ -27,7 +27,6 @@ public class HttpManager {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(Constant.base_url)
                 .build();
-        mRetrofit.create(UserApI.class);
     }
 
 

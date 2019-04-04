@@ -1,5 +1,7 @@
 package com.example.myboy.appcollection;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.usage.ExternalStorageStats;
@@ -7,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -17,16 +21,40 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.bumptech.glide.GenericTransitionOptions;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.target.ViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.myboy.appcollection.cardgame.activity.login.LoginActivity;
 import com.example.myboy.appcollection.cardgame.weigets.VerticalBannerView;
+import com.example.myboy.appcollection.databinding.WeatherActivity;
 import com.example.myboy.appcollection.desktop.DeskTopActivity;
 import com.example.myboy.appcollection.search.SortActivity;
 import com.example.myboy.appcollection.videoplayer.VideoPlayerActivity;
 import com.example.myboy.appcollection.vpn.VpnUtil;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.bugly.beta.Beta;
@@ -37,10 +65,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.functions.Consumer;
 
@@ -51,10 +81,111 @@ public class MainActivity extends AppCompatActivity {
     String filePathMusic;
     private static final String TAG = "MainActivity";
     VerticalBannerView verticalBannerView;
+    TextView textView;
+    LineChart lineChart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+startActivity(new Intent(this, com.example.myboy.appcollection.demo.activity.login.LoginActivity.class));
+//
+//        lineChart = findViewById(R.id.lineChart);
+//
+//        lineChart.setTouchEnabled(false);
+//
+//        // enable scaling and dragging
+//        lineChart.setDragEnabled(false);
+//        lineChart.setScaleEnabled(false);
+//        // chart.setScaleXEnabled(true);
+//        // chart.setScaleYEnabled(true);
+//
+//        // force pinch zoom along both axis
+//        lineChart.setPinchZoom(false);
+//        lineChart.setBackgroundColor(Color.WHITE);
+//        lineChart.setDrawBorders(false);
+//
+//
+//        ArrayList<String> mList = new ArrayList<>();
+//        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //设置x轴在下方  默认为上方
+//        xAxis.setGranularity(1f);
+//        /**
+//         * 设置X轴值为字符串
+//         */
+//        mList.add("");
+//        mList.add("8-1");
+//        mList.add("8-2");
+//        mList.add("8-3");
+//        mList.add("8-4");
+//        mList.add("8-5");
+//        mList.add("8-6");
+//        xAxis.setValueFormatter(new IAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value, AxisBase axis) {
+//                return mList.get((int) value); //mList为存有月份的集合
+//            }
+//        });
+
+        /**
+         * 设置Y轴为字符串
+         */
+//        List<String> left = new ArrayList<>();
+//        left.add("0K");
+//        left.add("200");
+//        left.add("300");
+//        left.add("400");
+//        YAxis leftYAxis = lineChart.getAxisLeft();
+//        lineChart.getAxisRight().setEnabled(false);
+//
+//        xAxis.setDrawGridLines(false);
+//        leftYAxis.setDrawGridLines(false);
+//        leftYAxis.setValueFormatter(new IAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value, AxisBase axis) {
+//                return value+"";
+//            }
+//        });
+        /**
+         * 设置网格属性
+         */
+//        leftYAxis.setGranularity(1f);
+//        leftYAxis.setLabelCount(4,true);
+//        leftYAxis.setAxisMinimum(0);
+//        leftYAxis.setAxisMaximum(400);
+//        leftYAxis.setAxisLineColor(Color.GREEN); //Y轴颜色
+//
+//        /**
+//         * 隐藏曲线图的标签
+//         */
+//        Legend legend = lineChart.getLegend();
+//        legend.setEnabled(false);
+//
+//        Description description = new Description();
+//        description.setEnabled(false);
+//        lineChart.setDescription(description);
+//
+//        // 折线图的线条设置
+////一个LineDataSet就是一条线
+//        List<Entry> entries = new ArrayList<>();
+//        for (int i = 0; i < 7; i++) {
+//            entries.add(new Entry(i, (float) (Math.random()) * 400));
+//        }
+//        LineDataSet lineDataSet = new LineDataSet(entries, "");
+////设置曲线值的圆点是实心还是空心
+//        lineDataSet.setDrawCircleHole(false);
+////设置显示值的字体大小
+//        lineDataSet.setValueTextSize(9f);
+//        lineDataSet.setDrawValues(false);
+////线模式为圆滑曲线（默认折线）
+//        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//        //不显示点
+//        lineDataSet.setDrawCircles(false);
+//        LineData lineData = new LineData(lineDataSet);
+//        lineChart.setData(lineData);
+
+//        GlideApp.with(this).asBitmap().load(R.drawable.circle).transition(new BitmapTransitionOptions().crossFade())
+
 //
 //
 //        verticalBannerView = findViewById(R.id.verticalview);
@@ -90,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-    static class Bean{
+    static class Bean {
         private String one;
         private String two;
 
@@ -116,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    static class ViewFactory extends VerticalBannerView.VerticalViewFactory<Bean>{
+    static class ViewFactory extends VerticalBannerView.VerticalViewFactory<Bean> {
         private SoftReference<Context> mContext;
 
         public ViewFactory(SoftReference<Context> mContext) {
@@ -125,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void refreshView(View view, Bean bean) {
-            if (view!=null) {
+            if (view != null) {
                 TextView one = view.findViewById(R.id.one);
                 TextView two = view.findViewById(R.id.two);
                 one.setText(bean.getOne());
@@ -136,8 +267,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View makeView() {
             View view = null;
-            if (mContext.get()!=null){
-                view = LayoutInflater.from(mContext.get()).inflate(R.layout.item_vertical,null);
+            if (mContext.get() != null) {
+                view = LayoutInflater.from(mContext.get()).inflate(R.layout.item_vertical, null);
             }
             return view;
         }

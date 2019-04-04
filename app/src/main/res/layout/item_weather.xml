@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+        <variable
+            name="listener"
+            type="com.example.myboy.appcollection.databinding.adapter.WeatherAdapter.OnItemClickListener"/>
+        <variable
+            name="item"
+            type="com.example.myboy.appcollection.databinding.bean.CityBean"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            bind:loadBingPic="@{item.icon}"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@{item.city}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{item.temperature + "°"}'/>
+   </LinearLayout>
+
+</layout>

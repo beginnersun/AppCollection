@@ -1,0 +1,74 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="model"
+            type="com.example.myboy.appcollection.databinding.model.WeatherActivityModel"/>
+
+        <variable
+            name="weather"
+            type="com.example.myboy.appcollection.databinding.bean.WeatherBean"/>
+
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/smssdk_lv_item_divider"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/bingPicImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            bind:loadBingPic="@{model.liveData.bg_url}"
+        />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_weather_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{model.liveData.city}"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_weather_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_weather_city"
+            android:text="@{model.liveData.temperature}"/>
+
+        <TextView
+            android:id="@+id/tv_weather_suggestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_weather_temperature"
+            android:text="@{model.liveData.suggestion}"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_below="@id/tv_weather_suggestion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="140dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/rect_bg"
+            android:text="刷新数据"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:onClick="@{() -> model.refreshing()}"
+            />
+
+    </RelativeLayout>
+</layout>

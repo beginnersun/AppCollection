@@ -11,6 +11,12 @@
         android:id="@+id/verticalview"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/bg_gray"/>
+        android:background="@color/bg_gray"
+        android:visibility="gone"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"/>
 
 </LinearLayout>

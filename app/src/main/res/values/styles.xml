@@ -1,11 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="NoActionBar" parent="Theme.AppCompat.NoActionBar">
+
     </style>
 
     <!-- AppCompatActivity的全屏方案 -->
@@ -45,6 +51,27 @@
         <item name="android:windowIsTranslucent">true</item>
         <!--进出动画-->
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <style name="ShowMaiButton">
+        <item name="android:background">@drawable/bg_order_white</item>
+        <item name="android:layout_marginTop">-5dp</item>
+    </style>
+
+    <style name="HideMaiButton">
+        <item name="android:background">@drawable/bg_order_gray_corner</item>
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+
+
+    <style name="ShowShouButton">
+        <item name="android:background">@drawable/bg_order_white</item>
+        <item name="android:layout_marginTop">-5dp</item>
+    </style>
+
+    <style name="HideShouButton">
+        <item name="android:background">@color/bg_gray</item>
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
 </resources>

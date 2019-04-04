@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telecom.Call;
+import android.text.TextUtils;
 
 /**
  * Created by This on 2018/6/7.
@@ -25,6 +26,9 @@ public class GameReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String content = intent.getStringExtra(GAME_CONTENT);
+        if (TextUtils.isEmpty(content)){
+            return;
+        }
         if(content.startsWith("addRoom:")){
             content = content.replace("addRoom:","");
             if(!content.contains("加入失败")) {

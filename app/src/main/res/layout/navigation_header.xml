@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="user"
+            type="com.example.myboy.appcollection.demo.bean.User"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:gravity="bottom"
+        android:padding="16dp"
+        android:background="@mipmap/bg_sandbeach">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/tv_username"
+            android:src="@mipmap/noviciate"
+            android:scaleType="fitXY"
+            app:load_picture="@{user.img}"
+            app:type='@{"circle"}' />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_userinfo"
+            android:layout_marginTop="5dp"
+            android:text="@{user.username}"/>
+
+        <TextView
+            android:id="@+id/tv_userinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{user.info}"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+</layout>
