@@ -4,8 +4,11 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.usage.ExternalStorageStats;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -88,7 +91,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-startActivity(new Intent(this, com.example.myboy.appcollection.demo.activity.login.LoginActivity.class));
+
+//        Intent intent = new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS);
+//        startActivity(intent);
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setMessage("当前账户未通过认证，不可添加账户信息，是否去重新提交认证？")
+//                .setCancelable(false)
+//                .setPositiveButton("去认证", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                }).show();
+//        Dialog dialog = builder.create();
+//        dialog.show();
+
+//startActivity(new Intent(this, com.example.myboy.appcollection.demo.activity.login.LoginActivity.class));
 //
 //        lineChart = findViewById(R.id.lineChart);
 //
@@ -187,7 +205,7 @@ startActivity(new Intent(this, com.example.myboy.appcollection.demo.activity.log
 //        GlideApp.with(this).asBitmap().load(R.drawable.circle).transition(new BitmapTransitionOptions().crossFade())
 
 //
-//
+//D
 //        verticalBannerView = findViewById(R.id.verticalview);
 //
 //        List<Bean> title = new ArrayList<>();
