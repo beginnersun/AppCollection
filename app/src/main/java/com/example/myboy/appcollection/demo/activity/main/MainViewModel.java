@@ -28,13 +28,6 @@ public class MainViewModel extends BaseViewModel {
             int count = 0;
             @Override
             public void run() {
-//                while (true) {
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    Log.e("让我睡一秒", "睡觉");
                     liveData.postValue(new User(userName[count%2], "test_me", "15280593883", imageHead[count++ % 2], "我在打代码,别问我代码是谁！"));
 //                }
             }
