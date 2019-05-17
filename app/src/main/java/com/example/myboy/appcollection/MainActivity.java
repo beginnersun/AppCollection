@@ -31,11 +31,14 @@ import android.widget.ViewSwitcher;
 
 import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
@@ -87,11 +90,18 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     LineChart lineChart;
 
+    ImageView img;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        img = findViewById(R.id.img);
+
+//        img.setImageResource(R.mipmap.a10a051764b028bc7dc8fa24e9c28313);
+
+//        Glide.with(this).load(R.mipmap.a10a051764b028bc7dc8fa24e9c28313).into(img);
 //        Intent intent = new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS);
 //        startActivity(intent);
 

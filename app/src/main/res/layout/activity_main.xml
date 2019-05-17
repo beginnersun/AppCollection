@@ -7,16 +7,54 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.example.myboy.appcollection.cardgame.weigets.VerticalBannerView
-        android:id="@+id/verticalview"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/bg_gray"
-        android:visibility="gone"/>
+    <!--<com.example.myboy.appcollection.cardgame.weigets.VerticalBannerView-->
+        <!--android:id="@+id/verticalview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:background="@color/bg_gray"-->
+        <!--android:visibility="gone"/>-->
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"/>
+    <!--<com.github.mikephil.charting.charts.LineChart-->
+        <!--android:id="@+id/lineChart"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="400dp"/>-->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/img"/>
+
+    <!--<com.example.myboy.appcollection.cardgame.weigets.FlowLayout-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="123456789"-->
+            <!--android:gravity="center" />-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="fasdfasdf"-->
+            <!--android:gravity="center" />-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="1234"-->
+            <!--android:gravity="center" />-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="1234567fgerfdasf89"-->
+            <!--android:gravity="center" />-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="1234567fgerfdasf89"-->
+            <!--android:gravity="center" />-->
+
+    <!--</com.example.myboy.appcollection.cardgame.weigets.FlowLayout>-->
+
 
 </LinearLayout>

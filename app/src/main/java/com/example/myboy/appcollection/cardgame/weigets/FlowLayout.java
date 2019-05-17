@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static android.R.attr.mode;
 
@@ -16,8 +17,16 @@ import static android.R.attr.mode;
 
 public class FlowLayout extends ViewGroup {
 
+    private Context mContext;
+    private FlowAdapter flowAdapter;
+
+    public void setFlowAdapter(FlowAdapter flowAdapter) {
+        this.flowAdapter = flowAdapter;
+    }
+
     public FlowLayout(Context context) {
         super(context);
+        this.mContext = context;
     }
 
     public FlowLayout(Context context, AttributeSet attrs) {
@@ -48,8 +57,8 @@ public class FlowLayout extends ViewGroup {
             View child = getChildAt(i);
             measureChild(child,widthMeasureSpec,heightMeasureSpec);
             MarginLayoutParams marginLayoutParams = (MarginLayoutParams) child.getLayoutParams();
-            int childWidth = marginLayoutParams.leftMargin + child.getWidth() + marginLayoutParams.rightMargin;
-            int childHeight = marginLayoutParams.topMargin + child.getHeight() + marginLayoutParams.bottomMargin;
+            int childWidth = marginLayoutParams.leftMargin + child.getMeasuredWidth() + marginLayoutParams.rightMargin;
+            int childHeight = marginLayoutParams.topMargin + child.getMeasuredHeight() + marginLayoutParams.bottomMargin;
             if (linwidth + childWidth > sizewidth){
                 height = height + lineHeight;
                 width = Math.max(width,linwidth);
@@ -125,7 +134,136 @@ public class FlowLayout extends ViewGroup {
             left = 0;
             top = top + lineHeight;
         }
+    }
 
+    private void onAdapterChanger(){
+        /**
+         * 先清空之前的所有状态与元素
+         */
+        this.removeAllViews();
+        clearStatus();
+        Set<Integer> selectors = this.selectIndexs;
+        int size = flowAdapter.getChildCount();
+        for (int i = 0 ; i < size ; ++i){
+
+            View view = flowAdapter.getView(i,this,flowAdapter.getItem(i));
+            TagView tagView = new TagView(view,i);
+            if (selectors.contains(i)){              //初始化时 如果已经有默认选中 则调用onSelected 方法
+                flowAdapter.onSelected(view,i,flowAdapter.getItem(i));
+                tagView.setSelected(true);
+            }
+            this.addView(view);
+
+            tagView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doSelect(tagView);
+                }
+            });
+        }
+        selectors = null;
+    }
+
+    /**
+     * 清空所有状态
+     */
+    private void clearStatus(){
+
+    }
+
+    private void doSelect(TagView view){
+        if (view.isSelected()){ //已经是选中状态
+            view.setSelected(false);
+            int position = view.getPosition();
+            flowAdapter.unSelected(view.getView(),position,flowAdapter.getItem(position));
+            selectIndexs.remove(position);
+        }else {
+            view.setSelected(true);
+            int position = view.getPosition();
+            flowAdapter.onSelected(view.getView(),position,flowAdapter.getItem(position));
+            selectIndexs.add(position);
+        }
+    }
+
+    private String getSelectInfo(){
+        StringBuffer stringBuffer = new StringBuffer("[");
+        return stringBuffer.toString();
+    }
+
+    private Set<Integer> selectIndexs;
+
+    public void setSelectIndexs(Set<Integer> selectIndexs) {
+        this.selectIndexs = selectIndexs;
+    }
+
+    public Set<Integer> getSelectIndexs() {
+        return selectIndexs;
+    }
+
+    public abstract class FlowAdapter<T extends Object>{
+
+        private List<T> mDatas;
+
+        public abstract View getView(int position,FlowLayout parent,T info);
+
+        public abstract void onSelected(View view,int position,T info);
+
+        public abstract void unSelected(View view,int position,T info);
+
+        public int getChildCount(){
+            return mDatas!=null?mDatas.size():0;
+        }
+
+        public T getItem(int position){
+            if (null != mDatas && mDatas.size() > position){
+                return mDatas.get(position);
+            }
+            return null;
+        }
+
+    }
+
+    /**
+     * Item中View的包装类
+     */
+    private class TagView{
+        private View view;
+        private int position;
+        private boolean selected;
+        private OnClickListener onClickListener;
+
+        public TagView(View view,int position) {
+            this(view,position,false);
+        }
+
+        public TagView(View view,int position, boolean selected) {
+            this.view = view;
+            this.selected = selected;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setSelected(boolean selected) {
+            this.selected = selected;
+        }
+
+        public boolean isSelected() {
+            return selected;
+        }
+
+        public void setOnClickListener(OnClickListener onClickListener) {
+            this.view.setOnClickListener(onClickListener);
+        }
     }
 
 }

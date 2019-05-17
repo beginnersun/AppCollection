@@ -4,107 +4,115 @@
     package="com.example.myboy.appcollection">
 
     <!-- 危险权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-        <!-- 定位权限 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-        <!-- 读取日历和相机 -->
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 定位权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 读取日历和相机 -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
-        <!-- 短信权限和通讯录权限
+    <!--
+ 短信权限和通讯录权限
          第一个和第二个是为了开启Mob的SMS智能验证权限
-         -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-        <!-- wifi状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-    <!-- 安全权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- 如果你正在从 URL 加载图片，Glide 可以自动帮助你处理片状网络连接：它可以监听用户的连接状态并
+    -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 安全权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--
+ 如果你正在从 URL 加载图片，Glide 可以自动帮助你处理片状网络连接：它可以监听用户的连接状态并
     在用户重新连接到网络时重启之前失败的请求。如果 Glide 检测到你的应用拥有 ACCESS_NETWORK_STATE 权
-    限，Glide 将自动监听连接状态而不需要额外的改动。    -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    限，Glide 将自动监听连接状态而不需要额外的改动。
+    -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 
-
-    <!-- android:sharedUserId="android.uid.system 设置为系统应用-->
     <application
         android:name=".SampleApplication"
         android:allowBackup="true"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:sharedUserId="android.uid.system"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:sharedUserId="android.uid.system"
-        tools:replace="android:appComponentFactory"
-        android:appComponentFactory="android.support.v4.app.CoreComponentFactory">
+        tools:replace="android:appComponentFactory">
+        <service
+            android:name=".testserivice.WeChatLogService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:description="@string/app_name">
+
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/wechat_config"
+                />
+
+        </service>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!--&lt;!&ndash; 腾讯Bugly 配置热更新 &ndash;&gt;-->
-        <!--<activity-->
-            <!--android:name="com.tencent.bugly.beta.ui.BetaActivity"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize|locale"-->
-            <!--android:theme="@android:style/Theme.Translucent" />-->
-
+        </activity> <!-- &lt;!&ndash; 腾讯Bugly 配置热更新 &ndash;&gt; -->
+        <!-- <activity -->
+        <!-- android:name="com.tencent.bugly.beta.ui.BetaActivity" -->
+        <!-- android:configChanges="keyboardHidden|orientation|screenSize|locale" -->
+        <!-- android:theme="@android:style/Theme.Translucent" /> -->
         <activity android:name=".cardgame.GameActivity">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="card"
-                    android:host="www.ddz.com"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="www.ddz.com"
+                    android:scheme="card" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".cardgame.activity.setting.GameSetting"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            android:screenOrientation="landscape"/>
-
-        <activity android:name=".cardgame.activity.login.LoginActivity"
+        <activity
+            android:name=".cardgame.activity.setting.GameSetting"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".cardgame.activity.login.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
-            android:theme="@style/AppCompatFullScreen"/>
-
-        <activity android:name=".cardgame.activity.video.VideoCenterActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppCompatFullScreen"/>
-
-        <activity android:name=".videoplayer.VideoPlayerActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppCompatFullScreen"/>
-
-        <activity android:name=".cardgame.activity.home.HomeActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppCompatFullScreen"/>
-
-<activity android:name=".demo.activity.login.LoginActivity"/>
-
+            android:theme="@style/AppCompatFullScreen" />
         <activity
-            android:theme="@style/MyTransParentStyle"
-            android:name=".desktop.DeskTopActivity"/>
-
-        <activity android:name=".search.bean.BaseBean"/>
-
-        <activity android:name=".search.SortActivity"/>
-        <activity android:name=".databinding.WeatherActivity"/>
-
-
-        <activity android:name=".demo.activity.main.MainActivity"
-            android:theme="@style/NoActionBar"/>
+            android:name=".cardgame.activity.video.VideoCenterActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppCompatFullScreen" />
+        <activity
+            android:name=".videoplayer.VideoPlayerActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppCompatFullScreen" />
+        <activity
+            android:name=".cardgame.activity.home.HomeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppCompatFullScreen" />
+        <activity android:name=".demo.activity.login.LoginActivity" />
+        <activity
+            android:name=".desktop.DeskTopActivity"
+            android:theme="@style/MyTransParentStyle" />
+        <activity android:name=".search.bean.BaseBean" />
+        <activity android:name=".search.SortActivity" />
+        <activity android:name=".databinding.WeatherActivity" />
+        <activity
+            android:name=".demo.activity.main.MainActivity"
+            android:theme="@style/NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -113,22 +121,20 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths"
-                />
+                android:resource="@xml/filepaths" />
         </provider>
 
         <service android:name=".cardgame.service.KeepAliveService">
             <intent-filter>
-                <action android:name="yyy.card.game"/>
+                <action android:name="yyy.card.game" />
             </intent-filter>
         </service>
 
         <receiver android:name=".cardgame.service.GameReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
