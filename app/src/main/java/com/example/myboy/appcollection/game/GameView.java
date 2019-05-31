@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,21 +26,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private static int SCREEN_WIDTH;
     private static int SCREEN_HEIGHT;
 
-    private int position_x;
-    private int position_y;
+    private float position_x;
+    private float position_y;
     private int peopleHeight;
     private int peopleWidth;
     private int direction;
     private Bitmap[][] roles;
     private int roleStatus;
-    private double speed;
+    private float speed;
 
 
     private Context mContext;
     private SurfaceHolder holder;
+    private DrawThread drawThread;
 
 
-    private static int DEFAULT_DURATION = 30;  //平均1秒30帧   所以默认移动一下移动30毫秒的时间
+    private int stup_size_l;
+    private int stup_size_s;
+    private int stup_size_1;
+    private int stup_size_2;
+    private int stup_size_3;
+    private int stup_size_4;
+
+    private static int DEFAULT_DURATION = 100;  //平均1秒30帧   所以默认移动一下移动30毫秒的时间
 
 
     public static int ROLE_LEFT = 1;
@@ -54,10 +64,49 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super(context, attrs);
         this.mContext = context;
         this.holder = getHolder();
+        this.holder.addCallback(this);
 
         DisplayMetrics outMetrics = getResources().getDisplayMetrics();
         SCREEN_WIDTH = outMetrics.widthPixels;
         SCREEN_HEIGHT = outMetrics.heightPixels;
+        Log.e("GameView大小",SCREEN_WIDTH + "   ,   " + SCREEN_HEIGHT);
+    }
+
+    private void init(){
+        drawThread = new DrawThread();
+        roles = createBitmaps(R.mipmap.sprite,4,4);
+        stup_size_1 = (int) (peopleWidth/20 * 2);
+        stup_size_2 = (int) (peopleWidth/20 * 3);
+        stup_size_3 = (int) (peopleWidth/20 * 2);
+        stup_size_4 = (int) (peopleWidth/20 * 2);
+
+//        stup_size_l = (int) (peopleWidth/20 * 2.5);
+//        stup_size_s = peopleWidth/20 * 2;
+//        speed = (float) ((500 * SCREEN_WIDTH / 480) * 0.001);
+
+        this.direction = 0;
+        this.roleStatus = 0;
+        this.position_x = SCREEN_WIDTH / 2;
+        this.position_y = SCREEN_HEIGHT / 2;
+
+        Log.e("GameView大小",position_x + "   ,   " + position_y);
+        Bitmap bitmap = getRoleBitmap();
+        Canvas canvas = this.holder.lockCanvas();
+        try {
+            Paint paint = new Paint();
+            paint.setColor(Color.WHITE);
+            paint.setAntiAlias(true);
+//        canvas.drawCircle(this.position_x,this.position_y,this.position_x,paint);
+            canvas.drawColor(Color.WHITE);
+            canvas.drawBitmap(bitmap,position_x,position_y,new Paint());
+            Log.e("GameView","绘制结束");
+        }catch (Exception e){
+            Log.e("GameView","出错");
+            e.printStackTrace();
+        }finally {
+            Log.e("GameView","提交");
+            this.holder.unlockCanvasAndPost(canvas);
+        }
 
     }
 
@@ -79,10 +128,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         this.peopleHeight = itemHeight;
         for (int i = 0 ;i < 4 ;i++){
             for (int j = 0 ;j < 4 ;j++){
-                bitmap[i][j] = Bitmap.createBitmap(source,i*itemWidth,j*itemHeight,itemWidth,itemHeight);
+                bitmap[i][j] = Bitmap.createBitmap(source,j*itemWidth,i*itemHeight,itemWidth,itemHeight);
             }
         }
-        return null;
+        return bitmap;
     }
 
     public void setDirection(int direction) {
@@ -94,13 +143,39 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 //        return -1;
 //    }
 
-    private void onTouchLeft(){
+    public void onTouchLeft(){
         setDirection(ROLE_LEFT);
+        if (!drawThread.isRunning()){
+            drawThread.run();
+        }
+    }
+    public void onTouchRight(){
+        setDirection(ROLE_RIGHT);
+        if (!drawThread.isRunning()){
+            drawThread.run();
+        }
+    }
+    public void onTouchUp(){
+        setDirection(ROLE_UP);
+        if (!drawThread.isRunning()){
+            drawThread.run();
+        }
+    }
+    public void onTouchDown(){
+        setDirection(ROLE_DOWN);
+        if (!drawThread.isRunning()){
+            drawThread.run();
+        }
+    }
+
+    public void onStop(){
+        if (drawThread.isRunning()){
+            drawThread.stopThread();
+        }
     }
 
     private Bitmap getRoleBitmap(){
-        Bitmap role = roles[direction][roleStatus++];
-        roleStatus = roleStatus % 4;
+        Bitmap role = roles[direction][roleStatus];
         return role;
     }
 
@@ -108,28 +183,46 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
      *
      * @direction 0 1 2 3 分别代表下  左  右  上
      */
-    private void updatePosition(int dealTime){
+    private void updatePosition(int dealTime,int state){
+        int add = 0;
+        switch (state){
+            case 0:
+                add = stup_size_1;
+                break;
+            case 1:
+                add = stup_size_2;
+                break;
+            case 2:
+                add = stup_size_3;
+                break;
+            case 3:
+                add = stup_size_4;
+                break;
+        }
+        if (dealTime == 0){
+            add = 0;
+        }
         switch (direction){
             case 0:
-                this.position_y = (int) (this.position_y + (this.speed) * dealTime);
+                this.position_y = (int) (this.position_y + add);
                 if (this.position_y + peopleHeight >= SCREEN_HEIGHT){
                     this.position_y = SCREEN_HEIGHT - peopleHeight;
                 }
                 break;
             case 1:
-                this.position_x = (int) (this.position_x - this.speed*dealTime);
+                this.position_x = (int) (this.position_x - add);
                 if (this.position_x < 0){
                     this.position_x = 0;
                 }
                 break;
             case 2:
-                this.position_x = (int) (this.position_x + this.speed*dealTime);
+                this.position_x = (int) (this.position_x + add);
                 if (this.position_x > SCREEN_WIDTH){
                     this.position_x = SCREEN_WIDTH - peopleWidth;
                 }
                 break;
             case 3:
-                this.position_y = (int) (this.position_y + this.speed * dealTime);
+                this.position_y = (int) (this.position_y - add);
                 if (this.position_y < 0 ){
                     this.position_y = 0;
                 }
@@ -142,10 +235,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (this.position_x == 0){
             per_Left = false;
         }
-        if (this.position_x + peopleWidth == SCREEN_WIDTH){
+        if (this.position_x + peopleWidth >= SCREEN_WIDTH){
             per_Right = false;
         }
-        if (this.position_y + peopleHeight == SCREEN_HEIGHT){
+        if (this.position_y + peopleHeight >= SCREEN_HEIGHT){
             per_Down = false;
         }
     }
@@ -164,37 +257,51 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     class DrawThread implements Runnable{
 
-        private boolean isRunning;
+        private boolean running;
+        private int dealTime;
+        private long previousTime;
 
         public void stopThread(){
-            isRunning = false;
+            synchronized (this) {
+                running = false;
+            }
+        }
+
+        public boolean isRunning() {
+            return running;
         }
 
         @Override
         public void run() {
-            isRunning = true;
-            long previousTime = 0;
-            int dealTime = 0;
-            while (isRunning){
-                Canvas canvas = holder.lockCanvas();
+//            running = true;
+            previousTime = System.currentTimeMillis();
+//            while (running){
+//                canvas.save();
                 Bitmap bitmap = getRoleBitmap();
-                updatePosition((int) dealTime);
-                canvas.drawBitmap(bitmap,position_x,position_y,null);
+                updatePosition((int) dealTime,roleStatus++);
+                roleStatus = roleStatus % 4;  //状态切换为下一个
+                Canvas canvas = holder.lockCanvas();
+                canvas.drawColor(Color.WHITE);
+                canvas.drawBitmap(bitmap,position_x,position_y,new Paint());
+                holder.unlockCanvasAndPost(canvas);
                 dealTime = (int) (System.currentTimeMillis() - previousTime);
                 if (dealTime < DEFAULT_DURATION){
                     try {
                         Thread.sleep(DEFAULT_DURATION - dealTime);
+                        dealTime = DEFAULT_DURATION;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
                 previousTime = System.currentTimeMillis();
-            }
+//                canvas.restore();
+//            }
         }
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        init();
         Log.e(TAG, "surfaceCreated: 创建");
     }
 
@@ -206,5 +313,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         Log.e(TAG, "surfaceDestroyed: 销毁");
+        if (drawThread!=null){
+            drawThread.stopThread();
+        }
     }
 }

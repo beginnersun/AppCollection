@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -23,7 +24,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,9 +48,11 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.myboy.appcollection.cardgame.activity.login.LoginActivity;
+import com.example.myboy.appcollection.cardgame.bean.CardBean;
 import com.example.myboy.appcollection.cardgame.weigets.VerticalBannerView;
 import com.example.myboy.appcollection.databinding.WeatherActivity;
 import com.example.myboy.appcollection.desktop.DeskTopActivity;
+import com.example.myboy.appcollection.game.GameView;
 import com.example.myboy.appcollection.search.SortActivity;
 import com.example.myboy.appcollection.videoplayer.VideoPlayerActivity;
 import com.example.myboy.appcollection.vpn.VpnUtil;
@@ -71,6 +76,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,13 +97,133 @@ public class MainActivity extends AppCompatActivity {
     LineChart lineChart;
 
     ImageView img;
+    GameView gameView;
+
+    TextView left;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        img = findViewById(R.id.img);
+        Method method = CardBean.class.getMethods()[0];
+        method.getAnnotations();
+
+
+
+
+
+//        CardBean.class.getDeclaredFi
+//        ClassInfo classInfo = CardBean.class.getAnnotation(CardBean.class);
+
+//
+//        findViewById(R.id.parent).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("父母","OnClick");
+//            }
+//        });
+//
+//        findViewById(R.id.child).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("孩子","OnClick");
+//            }
+//        });
+
+
+//        gameView = findViewById(R.id.game_view);
+//        left = findViewById(R.id.left);
+
+        showImageDialog("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559104998535&di=fee40cfc13d0d5dde359a448" +
+                "3fecf68f&imgtype=0&src=http%3A%2F%2Fgss0.bdstatic.com%2F7LsWdDW5_xN3otebn9fN2DJv%2Fdoc%2Fpic%2Fitem%2Fe4dde71190ef76c68581a71c9d16fdfaaf5167b1.jpg");
+
+//        findViewById(R.id.left).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("GameView","准备向左走");
+//                gameView.onTouchLeft();
+//            }
+//        });
+//        left.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return false;
+//            }
+//        });
+//        findViewById(R.id.left).setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        Log.e("GameView", "准备向左走");
+//                        gameView.onTouchLeft();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        Log.e("GameView", "向左走");
+//                        gameView.onTouchLeft();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        Log.e("GameView", "向左停止");
+//                        gameView.onStop();
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+//        findViewById(R.id.right).setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        gameView.onTouchRight();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        gameView.onTouchRight();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        gameView.onStop();
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+//        findViewById(R.id.up).setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        gameView.onTouchDown();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        gameView.onTouchDown();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        gameView.onStop();
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+//        findViewById(R.id.down).setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        gameView.onTouchLeft();
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        gameView.onTouchLeft();
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        gameView.onStop();
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+
+//        img = findViewById(R.id.img);
 
 //        img.setImageResource(R.mipmap.a10a051764b028bc7dc8fa24e9c28313);
 
@@ -247,6 +373,28 @@ public class MainActivity extends AppCompatActivity {
 //                return view;
 //            }
 //        });
+    }
+
+
+
+    private void showImageDialog(String url){
+        View entryImage = LayoutInflater.from(this).inflate(R.layout.dialog_show_image,null);
+        AlertDialog dialog = new AlertDialog.Builder(this).setView(entryImage).create();
+        ImageView showImageView = (ImageView) entryImage.findViewById(R.id.show_image);
+        Glide.with(this).load(url).into(showImageView);
+//        dialog.setContentView(entryImage);
+        dialog.show();
+
+        showImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 2019/5/29  点击图片后做跳转
+            }
+        });
+
+        Window win = dialog.getWindow();
+        // 一定要设置Background，如果不设置，window属性设置无效
+        win.setBackgroundDrawable( new ColorDrawable(Color.TRANSPARENT));
     }
 
     static class Bean {

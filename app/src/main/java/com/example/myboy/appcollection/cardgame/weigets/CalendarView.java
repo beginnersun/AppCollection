@@ -11,6 +11,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.myboy.appcollection.cardgame.utils.CalendarUtil;
@@ -56,7 +57,16 @@ public class CalendarView extends View {
         super(context, attrs);
         days = CalendarUtil.currentTime();
         head_height = 100;
-//        item_height = 200;
+
+        setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                float x = event.getX();
+                float y = event.getY();
+                
+                return false;
+            }
+        });
     }
 
     private void drawHead(Canvas canvas) {
@@ -92,7 +102,6 @@ public class CalendarView extends View {
         pathPaint.setAntiAlias(true);
         pathPaint.setStyle(Paint.Style.STROKE);
         pathPaint.setColor(Color.BLACK);
-//        pathPaint.setColor(Color.parseColor("#676767"));
         pathPaint.setStrokeWidth(5);
         canvas.drawPath(path, pathPaint);
     }
@@ -116,8 +125,6 @@ public class CalendarView extends View {
     }
 
     private void initDate() {
-        int width = getWidth();
-        int height = getHeight();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 Rect rect = new Rect(i * item_height, j * item_height, (i + 1) * item_height, (j + 1) * item_height);
@@ -149,19 +156,24 @@ public class CalendarView extends View {
     }
 
     private void drawDays(Canvas canvas) {
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int top = head_height + title_height;
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                drawCenterText(canvas, days[i][j] + "", j * item_width, top + i * item_height);
-                if (days[i][j] == CalendarUtil.getDay()){  //处于当前日期
-
+                if (days[i][j] == day){  //处于当前日期
+                    drawSelectBg(dayBound[i][j],canvas,j * item_width, top + i * item_height);
                 }
+                drawCenterText(canvas, days[i][j] + "", j * item_width, top + i * item_height);
+
             }
         }
     }
 
-    private void drawSelectBg(Rect rect,Canvas canvas){
-
+    private void drawSelectBg(Rect rect,Canvas canvas,int left,int top){
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.parseColor("#cc7832"));
+        canvas.drawCircle(left + item_width/2 , top + item_height/2 , item_width/2 ,paint);
     }
 
     @Override

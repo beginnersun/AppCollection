@@ -46,6 +46,7 @@ public class FlowLayout extends ViewGroup {
         int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
         int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
 
+
         int width = 0;
         int linwidth = 0;
 
